@@ -13,10 +13,11 @@ builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddSwaggerGen();
+var corsKeyName = "AllowAngularOrigins";
 builder.Services.AddCors(
     options =>
     {
-        options.AddDefaultPolicy(policy =>
+        options.AddPolicy(corsKeyName, policy =>
         {
             policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
 
@@ -36,6 +37,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(corsKeyName);
 
 app.MapControllers();
 

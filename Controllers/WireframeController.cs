@@ -110,7 +110,7 @@ namespace Wireframe.Backend.Controllers
 
         [HttpDelete("ModifyDevice/{parentId}/{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Device))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Device))]
         public async Task<ActionResult> Delete(string parentId, string id)
         {
             try

@@ -14,6 +14,7 @@ namespace Wireframe.Backend.Contexts
             modelBuilder.Entity<WireframeModel>()
                 .HasMany(e => e.Devices)
                 .WithOne(e => e.WireframeModel)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasForeignKey("WireframeId")
                 .IsRequired(false)
                 .HasPrincipalKey(e =>e.Id);
