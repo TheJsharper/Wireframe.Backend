@@ -168,7 +168,7 @@ namespace Wireframe.Backend.Repositories
 
                 wireframeModel.Devices.Remove(target);
 
-                wireframeModel.Devices.Remove(target);
+                context.RemoveRange(target);
 
                 context.SaveChanges();
 
