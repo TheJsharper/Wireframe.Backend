@@ -108,6 +108,22 @@ namespace Wireframe.Backend.Controllers
             }
         }
 
+        [HttpDelete("ModifyDevice/{parentId}/{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Device))]
+        public async Task<ActionResult> Delete(string parentId, string id)
+        {
+            try
+            {
+                var result = await wireFrameRepository.Delete(parentId, id);
+                return Ok(result);
+
+            }catch(Exception e)
+            {
+                return NotFound(new { e.Message });
+            }
+        }
+
 
     }
 }

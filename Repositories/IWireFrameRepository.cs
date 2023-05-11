@@ -14,5 +14,7 @@ namespace Wireframe.Backend.Repositories
 
         Task<Device> ModifyDevice(string id, Device device);
 
+        Task<Device> Delete(string parentId, string id);
+
     }
 }

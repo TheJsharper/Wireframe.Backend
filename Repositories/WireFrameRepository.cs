@@ -153,5 +153,31 @@ namespace Wireframe.Backend.Repositories
                 throw new Exception($" Problem Server site {ex.Message}");
             }
         }
+
+        public async Task<Device> Delete(string parentId, string id)
+        {
+            try
+            {
+                using var context = new WireframeContext();
+                var taskValue = context.WireframeModel.Include(e => e.Devices).FirstOrDefaultAsync( e=> e.Id.Equals(parentId) );
+
+
+                WireframeModel? wireframeModel = await taskValue ?? throw new ArgumentException($"Not Found Wireframe with id:  {parentId} ");
+
+                Device target = wireframeModel.Devices.FirstOrDefault((Device d) => d.Id != null && d.Id.Equals(id)) ?? throw new ArgumentException($"Not Found Wireframe with id:  {id} ");
+
+                wireframeModel.Devices.Remove(target);
+
+                context.Update(wireframeModel);
+
+                context.SaveChanges();
+
+                return target;
+            }
+            catch( Exception ex) when( ex is ArgumentNullException)
+            {
+                throw new Exception($"Either ParentId: ${parentId} was null or id $:{id} was null or NOT FOUND width combining  ParentId {parentId} and id: {id} ");
+            }
+        }
     }
 }
